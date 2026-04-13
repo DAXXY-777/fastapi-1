@@ -1,5 +1,6 @@
 from fastapi.openapi.utils import status_code_ranges
 from fastapi import FastAPI,HTTPException
+from app.schemas import PostCreate
 
 app=FastAPI()
 
@@ -29,3 +30,10 @@ def get_id_post(id:int):
     if id not in text_post:
         raise HTTPException(status_code=404, detail="Post not found")
     return text_post.get(id)
+
+
+@app.post("/post")
+def create_post(post: PostCreate):
+    newpost={"title": post.title, "content": post.content}
+    text_post[max(text_post.keys())+1] = newpost
+    return newpost
