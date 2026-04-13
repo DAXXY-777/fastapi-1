@@ -18,7 +18,11 @@ text_post = {
     12: {"title": "Book Notes", "content": "Reading a mystery novel"},
     13: {"title": "Evening Reflection", "content": "Productive and calm day"}
 }
-
+@app.get("/querys")
+def get_query(limit:int = None):
+    if limit:
+        return list(text_post.values())[:limit]
+    return text_post
 
 @app.get("/content/{id}")
 def get_id_post(id:int):
